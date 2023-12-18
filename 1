@@ -1,0 +1,46 @@
+import pandas as pd
+
+# Game Execute Function
+def RPSExecute(player1, player2):
+    if player1 == player2:
+        return 0
+    elif player1 == 'rock' and player2 == 'scissors' \
+    or player1 == 'scissors' and player2 == 'paper' \
+    or player1 == 'paper' and player2 == 'rock':
+        return 1
+    else:
+        return 2
+
+rpsList = pd.read_csv('RPSList.csv', header = 0)
+print(rpsList.head())
+
+player1_wins = 0
+player2_wins = 0
+ties = 0
+
+# Task 4: Loop through all rows in the DataFrame
+for index, row in rpsList.iterrows():
+    player1 = row['Player1']
+    player2 = row['Player2']
+
+    # Call the RPSExecute function and store the result
+    result = RPSExecute(player1, player2)
+
+    # Update the game results record
+    if result == 0:
+        ties += 1
+    if result == 1:
+        player1_wins += 1
+    elif result == 2:
+        player2_wins += 1
+    elif result == 0:
+        ties += 1
+
+# Output the game results
+print('Game Log')
+print(' ')
+print(str(ties) + ' games were a tie')
+print(' ')
+print(str(player1_wins) + ' games were won by Player 1')
+print(' ')
+print(str(player2_wins) + ' games were won by Player 2')
